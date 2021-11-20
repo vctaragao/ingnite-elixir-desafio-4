@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+
+    elixir:
+        build: .
+        container_name: reserva-voos-elixir
+        tty: true
+        volumes:
+            - .:/app

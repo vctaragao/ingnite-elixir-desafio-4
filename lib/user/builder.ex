@@ -5,16 +5,17 @@ defmodule FlightBooking.User.Builder do
     with {:ok, email} <- validate_email(email),
          {:ok, cpf} <- validate_cpf(cpf) do
       %User{id: UUID.uuid4(), name: name, cpf: cpf, email: email}
+      |> User.save_or_update()
     end
   end
 
   def build(_name, _email, _cpf), do: {:error, "Parametros inválidos"}
 
   defp validate_email(email) do
-    if not String.contains?(email, "@") do
-      {:error, "E-mail inválido"}
-    else
+    if String.contains?(email, "@") do
       {:ok, email}
+    else
+      {:error, "E-mail inválido"}
     end
   end
 

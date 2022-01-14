@@ -8,4 +8,8 @@ defmodule FlightBooking.Booking.Agent do
   def save(%Booking{} = booking), do: Agent.update(__MODULE__, &update_state(&1, booking))
 
   defp update_state(state, %Booking{id: id} = booking), do: Map.put(state, id, booking)
+
+  def get(booking_id) do
+    Agent.get(__MODULE__, fn state -> Map.get(state, booking_id) end)
+  end
 end

@@ -2,20 +2,14 @@ defmodule FlightBooking.User.BuilderTest do
   use ExUnit.Case
 
   alias FlightBooking.User.Builder
-  alias FlightBooking.User.User
   alias FlightBooking.User.Agent, as: UserAgent
+
+  import FlightBooking.Factory
 
   setup_all do
     UserAgent.start_link(%{})
 
-    user = %User{
-      id: "abc",
-      name: "Victor Moraes",
-      email: "email@test.com",
-      cpf: "12345678910"
-    }
-
-    {:ok, user: user}
+    {:ok, user: build(:user)}
   end
 
   describe "build/4" do

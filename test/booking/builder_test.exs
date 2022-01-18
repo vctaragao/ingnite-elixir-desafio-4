@@ -2,37 +2,24 @@ defmodule FlightBooking.Booking.BuilderTest do
   use ExUnit.Case
 
   alias FlightBooking.Booking.Builder
-  alias FlightBooking.Booking.Booking
   alias FlightBooking.Booking.Agent, as: BookingAgent
 
-  alias FlightBooking.User.User
   alias FlightBooking.User.Agent, as: UserAgent
+
+  import FlightBooking.Factory
 
   setup_all do
     {:ok, user_id} = generate_user()
 
-    booking = %Booking{
-      id: "abc",
-      complete_date: "10/10/2022",
-      origin: "Rio de Janeiro",
-      destination: "Itajubá",
-      user_id: user_id
-    }
-
     BookingAgent.start_link(%{})
 
-    {:ok, booking: booking}
+    {:ok, booking: build(:booking, %{complete_date: "17/01/2020", user_id: user_id})}
   end
 
   defp generate_user do
     UserAgent.start_link(%{})
 
-    user = %User{
-      id: "abc",
-      name: "Victor Moraes",
-      email: "email@test.com",
-      cpf: "12345678910"
-    }
+    user = build(:user)
 
     UserAgent.save(user)
 

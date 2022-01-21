@@ -9,6 +9,8 @@ defmodule FlightBooking.User.BuilderTest do
   setup_all do
     UserAgent.start_link(%{})
 
+    on_exit(fn -> UserAgent.clear() end)
+
     {:ok, user: build(:user)}
   end
 

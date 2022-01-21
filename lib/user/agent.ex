@@ -30,4 +30,6 @@ defmodule FlightBooking.User.Agent do
       Map.filter(state, fn {_cpf, user} -> user_id == user.id end)
     end)
   end
+
+  def clear(), do: Agent.update(__MODULE__, fn _state -> %{} end)
 end

@@ -18,7 +18,7 @@ defmodule FlightBooking.Factory do
       id: UUID.uuid4(),
       complete_date: "2022-01-17",
       origin: "Rio de janeiro",
-      destination: "Ijubbá",
+      destination: "Itajubá",
       user_id: UUID.uuid4()
     }
   end

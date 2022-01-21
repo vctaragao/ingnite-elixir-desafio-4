@@ -12,4 +12,14 @@ defmodule FlightBooking.Booking.Agent do
   def get(booking_id) do
     Agent.get(__MODULE__, fn state -> Map.get(state, booking_id) end)
   end
+
+  def findInBetween(initial_date, final_date) do
+    Agent.get(__MODULE__, fn state ->
+      Map.filter(state, fn {_id, booking} ->
+        Date.from_iso8601!(booking.complete_date) > Date.from_iso8601!(initial_date) and
+          Date.from_iso8601!(booking.complete_date) < Date.from_iso8601!(final_date)
+      end)
+    end)
+    |> Map.values()
+  end
 end

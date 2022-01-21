@@ -13,6 +13,11 @@ defmodule FlightBooking.Booking.BuilderTest do
 
     BookingAgent.start_link(%{})
 
+    on_exit(fn ->
+      BookingAgent.clear()
+      UserAgent.clear()
+    end)
+
     {:ok, booking: build(:booking, %{complete_date: "17/01/2020", user_id: user_id})}
   end
 

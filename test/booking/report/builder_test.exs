@@ -13,7 +13,11 @@ defmodule FlightBooking.Booking.Report.BuilderTest do
 
     BookingAgent.start_link(%{})
 
-    {:ok, booking: build(:booking, %{complete_date: "20/01/2020", user_id: user_id})}
+    booking = build(:booking, %{complete_date: "2020-01-20", user_id: user_id})
+
+    BookingAgent.save(booking)
+
+    {:ok, %{}}
   end
 
   defp generate_user do
@@ -27,7 +31,14 @@ defmodule FlightBooking.Booking.Report.BuilderTest do
   end
 
   describe "build/2" do
-    test "With reservation in between valid dates return reservations in a list" do
+    # Melhorias
+    # - Tornar teste Idempotente
+    # - Fazer assert com dados gerados no arquivo
+    # - Criar mais testes para validar que reservas fora do intervalo não são incluidas no relatório
+    # - Criar teste para validar se reservas que casem na data inicial ou final, são incluidas
+    # - Testar geração do relatório com multiplas reservas sendo encontradas (mais de uma linha)
+
+    test "Com reservas salvas no entre as datas passadas retornar reserva como uma linha no relatório" do
       result = Builder.build("01/01/2022", "31/01/2022")
 
       assert result == :ok

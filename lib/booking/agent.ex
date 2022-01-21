@@ -22,4 +22,6 @@ defmodule FlightBooking.Booking.Agent do
     end)
     |> Map.values()
   end
+
+  def clear(), do: Agent.update(__MODULE__, fn _state -> %{} end)
 end
